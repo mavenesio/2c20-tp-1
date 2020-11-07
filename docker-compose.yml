@@ -1,6 +1,22 @@
-version: '2'
+version: '3'
 
 services:
+    node:
+        build: ./js
+        ports:
+            - "3500:3500"
+        restart: always
+        volumes:
+            - './js:/app/js'
+
+    gunicorn:
+        build: ./py
+        ports:
+            - "5000:5000"
+        restart: always
+        volumes:
+            - './py:/app/py'
+
     nginx:
         image: nginx:1.18.0
         ports:
@@ -41,6 +57,15 @@ services:
             - "/var/run:/var/run:rw"
             - "/sys:/sys:ro"
             - "/var/lib/docker/:/var/lib/docker:ro"
+
+    bbox:
+        image: arqsoft/bbox:202002.1
+        ports:
+            - "9090:9090"
+            - "9091:9091"
+        volumes:
+            - ./config.properties:/opt/bbox/config.properties:ro
+        
 
 volumes:
     grafana_config:
