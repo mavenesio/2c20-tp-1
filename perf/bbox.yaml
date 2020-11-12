@@ -1,0 +1,235 @@
+config:
+  environments:
+    node:
+      target: 'http://localhost:5555/node/'
+      plugins:
+        statsd:
+          host: localhost
+          port: 8125
+          prefix: "artillery-node"
+    gunicorn:
+      target: 'http://localhost:5555/gunicorn/'
+      plugins:
+        statsd:
+          host: localhost
+          port: 8125
+          prefix: "artillery-gunicorn"
+    bbox1:
+      target: 'http://localhost:9090/'
+      plugins:
+        statsd:
+          host: localhost
+          port: 8125
+          prefix: "artillery-bbox1"
+    bbox2:
+      target: 'http://localhost:9091/'
+      plugins:
+        statsd:
+          host: localhost
+          port: 8125
+          prefix: "artillery-bbox2"
+
+  pool: 50 # All HTTP requests from all virtual users will be sent over the same connections
+
+  phases:
+    # - name: Zero1
+    #   duration: 60
+    #   arrivalRate: 0
+    # - name: Ramp
+    #   duration: 20
+    #   arrivalRate: 0
+    #   rampTo: 20
+    # - name: Plain
+    #   duration: 60
+    #   arrivalRate: 20
+    # - name: Zero2
+    #   duration: 60
+    #   arrivalRate: 0
+
+  # - name: Zero1
+  #   duration: 60
+  #   arrivalRate: 0
+  # - name: Plain
+  #   duration: 120
+  #   arrivalRate: 5
+  # - name: Zero2
+  #   duration: 60
+  #   arrivalRate: 0
+
+  - name: Zero1
+    duration: 60
+    arrivalRate: 0
+
+  - name: Ramp1
+    duration: 20
+    arrivalRate: 0
+    rampTo: 140
+  - pause: 40
+  
+  - name: Ramp2
+    duration: 20
+    arrivalRate: 0
+    rampTo: 140
+  - pause: 40
+
+  # - name: Ramp3
+  #   duration: 20
+  #   arrivalRate: 0
+  #   rampTo: 140
+  # - pause: 40
+
+  # - name: Ramp4
+  #   duration: 20
+  #   arrivalRate: 0
+  #   rampTo: 140
+  # - pause: 40
+
+  # - name: Ramp5
+  #   duration: 20
+  #   arrivalRate: 0
+  #   rampTo: 140
+  # - pause: 40
+
+  # - name: Ramp6
+  #   duration: 20
+  #   arrivalRate: 0
+  #   rampTo: 140
+  # - pause: 40
+
+  # - name: Ramp7
+  #   duration: 20
+  #   arrivalRate: 0
+  #   rampTo: 140
+  # - pause: 40
+
+  # - name: Ramp8
+  #   duration: 20
+  #   arrivalRate: 0
+  #   rampTo: 140
+
+  - name: Zero2
+    duration: 60
+    arrivalRate: 0
+
+  # - name: Ramp
+  #   duration: 30
+  #   arrivalRate: 0
+  #   rampTo: 30
+  # - name: Zero2
+  #   duration: 30
+  #   arrivalRate: 0
+
+      # --- PRUEBA ---
+      # - name: Zero1
+      #   duration: 50
+      #   arrivalRate: 0
+      # - name: Ramp
+      #   duration: 20
+      #   arrivalRate: 0
+      #   rampTo: 20
+      # - name: Plain
+      #   duration: 30
+      #   arrivalRate: 20
+      # - name: Zero2
+      #   duration: 50
+      #   arrivalRate: 0
+
+      # prueba para el servidor sincrónico y detectar la cantidad de workers
+    # - name: Zero1
+    #   duration: 100
+    #   arrivalRate: 0
+
+    # - name: Plain1
+    #   duration: 20
+    #   arrivalRate: 1
+    # - name: Plain2
+    #   duration: 20
+    #   arrivalRate: 2
+    # - name: Plain3
+    #   duration: 20
+    #   arrivalRate: 3
+    # - name: Plain4
+    #   duration: 20
+    #   arrivalRate:  4
+    # - name: Plain5
+    #   duration: 20
+    #   arrivalRate:  5
+    # - name: Plain6
+    #   duration: 20
+    #   arrivalRate:  6
+    # - name: Plain7
+    #   duration: 20
+    #   arrivalRate:  7
+    # - name: Plain8
+    #   duration: 20
+    #   arrivalRate:  8
+    # - name: Plain9
+    #   duration: 20
+    #   arrivalRate:  9
+    # - name: Plain10
+    #   duration: 20
+    #   arrivalRate:  10
+    # - name: Plain11
+    #   duration: 20
+    #   arrivalRate:  11
+    # - name: Plain12
+    #   duration: 20
+    #   arrivalRate:  12
+    # - name: Plain13
+    #   duration: 20
+    #   arrivalRate:  13
+
+    # - name: Plain1
+    #   duration: 20
+    #   arrivalRate: 5
+    # - name: Plain2
+    #   duration: 20
+    #   arrivalRate: 10
+    # - name: Plain3
+    #   duration: 20
+    #   arrivalRate: 15
+    # - name: Plain4
+    #   duration: 20
+    #   arrivalRate: 20
+    # - name: Plain5
+    #   duration: 20
+    #   arrivalRate: 25
+    # - name: Plain6
+    #   duration: 20
+    #   arrivalRate: 30
+    # - name: Plain7
+    #   duration: 20
+    #   arrivalRate: 35
+    # - name: Plain8
+    #   duration: 20
+    #   arrivalRate: 40
+    # - name: Plain9
+    #   duration: 20
+    #   arrivalRate: 45
+    # - name: Plain10
+    #   duration: 20
+    #   arrivalRate: 50
+    # - name: Plain11
+    #   duration: 20
+    #   arrivalRate: 55
+    # - name: Plain12
+    #   duration: 20
+    #   arrivalRate: 60
+    # - name: Plain13
+    #   duration: 20
+    #   arrivalRate: 65
+
+    # - name: Ramp
+    #   duration: 300
+    #   arrivalRate: 0
+    #   rampTo: 15
+    # - name: Zero2
+    #   duration: 100
+    #   arrivalRate: 0
+
+scenarios:
+  - name: Root (/)
+    flow:
+      - get:
+          url: '/'
+

@@ -1,39 +1,80 @@
 config:
   environments:
     node:
-      target: 'http://localhost:5555/node'
+      target: 'http://localhost:5555/node/'
       plugins:
         statsd:
           host: localhost
           port: 8125
           prefix: "artillery-node"
+    node_replicated:
+      target: 'http://localhost:5555/node_replicated/'
+      plugins:
+        statsd:
+          host: localhost
+          port: 8125
+          prefix: "artillery-node_replicated"
     gunicorn:
-      target: 'http://localhost:5555/gunicorn'
+      target: 'http://localhost:5555/gunicorn/'
       plugins:
         statsd:
           host: localhost
           port: 8125
           prefix: "artillery-gunicorn"
+    bbox1:
+      target: 'http://localhost:9090/'
+      plugins:
+        statsd:
+          host: localhost
+          port: 8125
+          prefix: "artillery-bbox1"
+    bbox2:
+      target: 'http://localhost:9091/'
+      plugins:
+        statsd:
+          host: localhost
+          port: 8125
+          prefix: "artillery-bbox2"
 
   pool: 50 # All HTTP requests from all virtual users will be sent over the same connections
 
   phases:
-    - name: Zero1
-      duration: 30
-      arrivalRate: 0
-    - name: Ramp
-      duration: 30
-      arrivalRate: 5
-      rampTo: 30
-    - name: Plain
-      duration: 120
-      arrivalRate: 30
-    - name: Zero2
-      duration: 30
-      arrivalRate: 0
+    # - name: Zero1
+    #   duration: 60
+    #   arrivalRate: 0
+    # - name: Ramp
+    #   duration: 20
+    #   arrivalRate: 0
+    #   rampTo: 20
+    # - name: Plain
+    #   duration: 60
+    #   arrivalRate: 20
+    # - name: Zero2
+    #   duration: 60
+    #   arrivalRate: 0
+
+  - name: Zero1
+    duration: 60
+    arrivalRate: 0
+  - name: Plain
+    duration: 10
+    arrivalRate: 3
+  - name: Zero2
+    duration: 160
+    arrivalRate: 0
 
 scenarios:
-  - name: Root (/)
+  # - name: Root (/)
+  #   flow:
+  #     - get:
+  #         url: '/'
+
+  # - name: Timeout (/timeout)
+  #   flow:
+  #     - get:
+  #         url: '/timeout'
+
+  - name: heavy (/heavy)
     flow:
       - get:
-          url: '/'
+          url: '/heavy'
